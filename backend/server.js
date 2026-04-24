@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "../frontend")));
 
 // ================= DATABASE =================
-mongoose.connect("mongodb://jemit:1234@ac-anun5kd-shard-00-00.t6oeg7f.mongodb.net:27017,ac-anun5kd-shard-00-01.t6oeg7f.mongodb.net:27017,ac-anun5kd-shard-00-02.t6oeg7f.mongodb.net:27017/expenseDB?ssl=true&replicaSet=atlas-10dr52-shard-0&authSource=admin&retryWrites=true&w=majority")
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Atlas Connected ✅"))
 .catch(err => console.log(err));
 
@@ -175,6 +175,8 @@ app.get("/get-transactions/:user_id", async (req, res) => {
 });
 
 // ================= SERVER =================
-app.listen(5000, () => {
-    console.log("Server running on port 5000 🚀");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT} 🚀`);
 });
