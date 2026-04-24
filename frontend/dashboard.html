@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html ng-app="expenseApp">
+<head>
+    <title>Dashboard</title>
+
+    <!-- RESPONSIVE META -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <!-- Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-controller="mainController" ng-init="loadDashboard()">
+
+<!-- HAMBURGER BUTTON -->
+<div class="menu-btn" ng-click="toggleMenu()">
+    <i class="fa-solid fa-bars"></i>
+</div>
+
+<!-- LOADER -->
+<div ng-show="loading" class="loader"></div>
+
+<!-- TOAST -->
+<div class="toast" ng-show="toastMsg">{{toastMsg}}</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" ng-class="{active: menuOpen}">
+
+    <h2><i class="fa-solid fa-wallet"></i> Tracker</h2>
+
+    <!-- PROFILE -->
+    <div class="profile-box">
+        <div class="profile-icon">
+            <i class="fa-solid fa-user"></i>
+        </div>
+
+        <div class="profile-info">
+            <h4>{{user.name}}</h4>
+            <p>{{user.email}}</p>
+        </div>
+
+        <!-- EDIT BUTTON -->
+        <i class="fa-solid fa-pen edit-icon"
+        ng-click="showEdit = !showEdit"></i>
+    </div>
+
+    <!-- EDIT FORM -->
+    <div class="edit-profile" ng-show="showEdit">
+
+        <input type="text" ng-model="user.name" placeholder="Name">
+        <input type="email" ng-model="user.email" placeholder="Email">
+
+        <button ng-click="updateProfile()">Save</button>
+
+    </div>
+
+    <a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+    <a href="#" ng-click="toggleDark()"><i class="fa-solid fa-moon"></i> Dark Mode</a>
+    <a href="#" ng-click="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="dashboard-box">
+
+    <h2 class="dashboard-title">Dashboard</h2>
+
+    <!-- CARDS -->
+    <div class="cards">
+        <div class="card income">₹{{totalIncome}}</div>
+        <div class="card expense">₹{{totalExpense}}</div>
+        <div class="card balance">₹{{balance}}</div>
+    </div>
+
+    <!-- ADD -->
+    <h3>Add Transaction</h3>
+
+    <input type="number" placeholder="Amount" ng-model="transaction.amount">
+
+    <select ng-model="transaction.type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+    </select>
+
+    <input type="text" placeholder="Category" ng-model="transaction.category">
+    <input type="text" placeholder="Note" ng-model="transaction.note">
+
+    <button ng-click="addTransaction()">Add</button>
+
+    <!-- CHART -->
+    <h3>Overview</h3>
+    <canvas id="chart"></canvas>
+
+    <!-- LIST -->
+    <h3>Transactions</h3>
+    <ul>
+        <li ng-repeat="t in transactions">
+            ₹{{t.amount}} - {{t.category}} - {{t.type}}
+        </li>
+    </ul>
+
+</div>
+</div>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

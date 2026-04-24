@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="expenseApp">
+<head>
+    <title>Signup</title>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="auth-body" ng-controller="mainController">
+
+<!-- LOADER -->
+<div ng-show="loading" class="loader"></div>
+
+<!-- TOAST -->
+<div class="toast" ng-show="toastMsg">{{toastMsg}}</div>
+
+<div class="auth-container">
+
+    <h2>Create Account ✨</h2>
+
+    <!-- NAME -->
+    <input type="text"
+           placeholder="Full Name"
+           ng-model="signup.name"
+           class="input-field">
+
+    <!-- EMAIL -->
+    <input type="email"
+           placeholder="Email Address"
+           ng-model="signup.email"
+           class="input-field">
+
+    <!-- PASSWORD (PRO VERSION SAME AS LOGIN) -->
+    <div class="input-group">
+        <input type="{{showPass ? 'text' : 'password'}}"
+               placeholder="Password"
+               ng-model="signup.password"
+               class="input-field">
+
+        <span class="toggle-icon" ng-click="showPass = !showPass">
+            <i class="fa-solid"
+               ng-class="showPass ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </span>
+    </div>
+
+    <!-- BUTTON -->
+    <button ng-click="signupUser()">Create Account</button>
+
+    <!-- LINK -->
+    <p>
+        Already have account? <a href="index.html">Login</a>
+    </p>
+
+</div>
+
+<!-- JS -->
+<script src="js/app.js"></script>
+
+</body>
+</html>
