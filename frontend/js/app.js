@@ -2,6 +2,19 @@ var app = angular.module("expenseApp", []);
 
 app.controller("mainController", function($scope, $http, $timeout) {
 
+    // ===== SIDEBAR MENU STATE =====
+    $scope.menuOpen = false;
+
+    // OPEN / CLOSE MENU
+    $scope.toggleMenu = function() {
+        $scope.menuOpen = !$scope.menuOpen;
+    };
+
+    // CLOSE MENU (outside click)
+    $scope.closeMenu = function() {
+        $scope.menuOpen = false;
+    };
+    
     let chart;
 
     const BASE_URL = "https://expensetracker-m111.onrender.com"; // ✅ IMPORTANT

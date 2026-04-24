@@ -32,6 +32,16 @@
 <!-- TOAST -->
 <div class="toast" ng-show="toastMsg">{{toastMsg}}</div>
 
+<!-- OVERLAY (click outside to close sidebar) -->
+<div id="overlay" 
+     class="overlay" 
+     ng-class="{active: menuOpen}" 
+     ng-click="closeMenu()">
+</div>
+
+<!-- OVERLAY (click outside to close sidebar) -->
+<div id="overlay" class="overlay" ng-click="closeMenu()"></div>
+
 <!-- SIDEBAR -->
 <div class="sidebar" ng-class="{active: menuOpen}">
 
