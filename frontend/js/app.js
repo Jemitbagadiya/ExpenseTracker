@@ -4,6 +4,8 @@ app.controller("mainController", function($scope, $http, $timeout) {
 
     let chart;
 
+    const BASE_URL = "https://expensetracker-m111.onrender.com"; // ✅ IMPORTANT
+
     $scope.loading = false;
     $scope.toastMsg = "";
 
@@ -27,7 +29,7 @@ app.controller("mainController", function($scope, $http, $timeout) {
     $scope.loginUser = function() {
         $scope.loading = true;
 
-        $http.post("http://localhost:5000/login", $scope.login)
+        $http.post(BASE_URL + "/login", $scope.login)
         .then(res => {
             localStorage.setItem("user_id", res.data.user_id);
             showToast("Login Successful ✅");
@@ -41,7 +43,7 @@ app.controller("mainController", function($scope, $http, $timeout) {
     $scope.signupUser = function() {
         $scope.loading = true;
 
-        $http.post("http://localhost:5000/signup", $scope.signup)
+        $http.post(BASE_URL + "/signup", $scope.signup)
         .then(() => {
             showToast("Signup Successful 🎉");
             window.location.href = "index.html";
@@ -65,7 +67,7 @@ app.controller("mainController", function($scope, $http, $timeout) {
 
     // ================= GET USER =================
     $scope.getUser = function() {
-        $http.get("http://localhost:5000/get-user/" + $scope.user_id)
+        $http.get(BASE_URL + "/get-user/" + $scope.user_id)
         .then(res => {
             $scope.user = res.data;
         });
@@ -76,7 +78,7 @@ app.controller("mainController", function($scope, $http, $timeout) {
 
         $scope.loading = true;
 
-        $http.put("http://localhost:5000/update-user/" + $scope.user_id, $scope.user)
+        $http.put(BASE_URL + "/update-user/" + $scope.user_id, $scope.user)
         .then(() => {
             showToast("Profile Updated ✅");
             $scope.showEdit = false;
@@ -102,7 +104,7 @@ app.controller("mainController", function($scope, $http, $timeout) {
             note: $scope.transaction.note || ""
         };
 
-        $http.post("http://localhost:5000/add-transaction", data)
+        $http.post(BASE_URL + "/add-transaction", data)
         .then(() => {
             showToast("Added Successfully 💸");
             $scope.transaction = {};
@@ -115,7 +117,7 @@ app.controller("mainController", function($scope, $http, $timeout) {
     $scope.getTransactions = function() {
         $scope.loading = true;
 
-        $http.get("http://localhost:5000/get-transactions/" + $scope.user_id)
+        $http.get(BASE_URL + "/get-transactions/" + $scope.user_id)
         .then(res => {
             $scope.transactions = res.data;
             calculate(res.data);
